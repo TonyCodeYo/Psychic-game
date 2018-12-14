@@ -7,42 +7,42 @@ var losses = 0;
 var GuessesLeft = 9;
 var YourGuesses = [];
 var computerGuess = letters[Math.floor(Math.random() * letters.length)];
-console.log(computerGuess);
+console.log("Computer Guess: ", computerGuess);
 
 $(document).ready(function(){
-
-
-  
   var leftGuess = document.getElementById("GuessesLeft")
-  leftGuess.textContent(GuessesLeft);
-  
+  leftGuess.textContent = GuessesLeft;
   //Create an event with an onclick function to represent the userGuesses
-document.onkeyup = function (event) {
-
-  document.getElementById("YourGuesses").appendChild(event.key + " ");
+  
+  document.onkeyup = function (event) {
+    
+    var userGuess = event.key.toUpperCase();
+    var guessWord = document.createTextNode(" " + userGuess + " ");
+  document.getElementById("YourGuesses").appendChild(guessWord);
   if (GuessesLeft > 0) {
-    var userGuess = event.key.toUpperCase;
     if (userGuess === computerGuess) {
       wins++;
-      document.getElementById("wins").textContent(wins);
-      alert("You Won!!!");
+      document.getElementById("wins").textContent = wins;
       GuessesLeft = 9;
-      leftGuess.textContent(GuessesLeft);
+      leftGuess.textContent = GuessesLeft;
+      document.getElementById("YourGuesses").textContent = "";
+      alert("You Won!!!");
       computerGuess = letters[Math.floor(Math.random() * letters.length)];
-      console.log(computerGuess);
+      console.log("Computer Guess: ", computerGuess);
     } else {
-      if (GuessesLeft <= 0) {
-        losses++;
-        document.getElementById("losses").textContent(losses);
-        alert("You Lost!!!");
-        GuessesLeft = 9;
-        leftGuess.textContent(GuessesLeft);
-      }
       GuessesLeft--;
-      leftGuess.textContent(GuessesLeft);
-
+      leftGuess.textContent = GuessesLeft;
     }
+  } else {
+    losses++;
+    document.getElementById("losses").textContent = losses;
+    alert("You Lost!!!");
+    document.getElementById("YourGuesses").textContent = "";
+    GuessesLeft = 9;
+    leftGuess.textContent = GuessesLeft;
   }
+
+  
 
 
   //Create a function that represents the random compGuess and logs that value
